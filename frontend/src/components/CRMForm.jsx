@@ -15,7 +15,7 @@ import {
   Smile, Award, CheckCircle, ArrowRight, Mic, X, Search, Sparkles
 } from 'lucide-react';
 
-export default function CRMForm() {
+export default function CRMForm({ onInteractionLogged }) {
   const dispatch = useDispatch();
   const formState = useSelector((state) => state.crm.formState);
   const suggestedFollowUps = useSelector((state) => state.crm.suggestedFollowUps);
@@ -295,6 +295,10 @@ export default function CRMForm() {
       dispatch(updateFormField({ field: 'shared_material_ids', value: [] }));
       dispatch(updateFormField({ field: 'distributed_sample_ids', value: [] }));
       dispatch(setSuggestedFollowUps([]));
+      
+      if (onInteractionLogged) {
+        onInteractionLogged();
+      }
     } catch (err) {
       console.error(err);
       alert(err.message || "Failed to log interaction.");

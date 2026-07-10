@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearForm, setFormState } from './store/crmSlice';
 import CRMForm from './components/CRMForm';
 import ChatPanel from './components/ChatPanel';
-import { Sparkles, Trash2, Cpu, FileText, CheckCircle, Database } from 'lucide-react';
+import { Sparkles, Trash2, Cpu, FileText, CheckCircle, Database, RefreshCw } from 'lucide-react';
 import { apiService } from './services/api';
 
 export default function App() {
@@ -59,7 +59,7 @@ export default function App() {
       {/* Main Grid Workspace */}
       <main className="app-workspace">
         <div className="left-panel">
-          <CRMForm />
+          <CRMForm onInteractionLogged={fetchRecent} />
         </div>
         <div className="right-panel">
           <ChatPanel />
@@ -68,14 +68,15 @@ export default function App() {
 
       {/* Database/Recent Activity Feed */}
       <section className="activity-feed">
-        <h3 className="flex items-center gap-2 mb-4 text-indigo-300">
+        <h3 className="activity-feed-title">
           <Database size={18} />
           Logged Database Interactions ({interactions.length})
           <button 
             type="button" 
-            className="text-xs text-indigo-400 underline ml-auto hover:text-indigo-300"
+            className="refresh-btn"
             onClick={fetchRecent}
           >
+            <RefreshCw size={12} />
             Refresh
           </button>
         </h3>

@@ -37,12 +37,16 @@ def startup_event():
     Base.metadata.create_all(bind=engine)
     # Check if we need to seed
     db = Session(bind=engine)
+    need_seeding = False
     try:
         if db.query(HCP).count() == 0:
-            logger.info("Database empty. Seeding demo data...")
-            seed_db()
+            need_seeding = True
     finally:
         db.close()
+        
+    if need_seeding:
+        logger.info("Database empty. Seeding demo data...")
+        seed_db(drop_tables=False)
 
 # Helper to construct InteractionResponse
 def build_interaction_response(db_interaction: Interaction) -> InteractionResponse:

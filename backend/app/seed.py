@@ -2,10 +2,11 @@ from datetime import datetime, timedelta
 from app.database import engine, Base, SessionLocal
 from app.models import HCP, Material, Interaction, interaction_materials
 
-def seed_db():
-    print("Re-creating database tables...")
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
+def seed_db(drop_tables=True):
+    if drop_tables:
+        print("Re-creating database tables...")
+        Base.metadata.drop_all(bind=engine)
+        Base.metadata.create_all(bind=engine)
     
     db = SessionLocal()
     try:

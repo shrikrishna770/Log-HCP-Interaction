@@ -626,6 +626,43 @@ body {
   padding: 24px;
 }
 
+.activity-feed-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  color: #A5B4FC;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.refresh-btn {
+  background: rgba(99, 102, 241, 0.12);
+  color: #A5B4FC;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.refresh-btn:hover {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: var(--color-primary);
+  color: #FFFFFF;
+  transform: translateY(-0.5px);
+}
+
+.refresh-btn:active {
+  transform: translateY(0.5px);
+}
+
 .interactions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

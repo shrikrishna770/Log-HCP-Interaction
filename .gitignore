@@ -1,0 +1,17 @@
+# Databases and Credentials
+backend/.env
+*.db
+
+# Python
+backend/venv/
+backend/__pycache__/
+*.pyc
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+.eslintcache
+
+# System files
+.DS_Store
+Thumbs.db

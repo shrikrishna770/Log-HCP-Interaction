@@ -291,7 +291,7 @@ def get_mock_response(prompt: str, json_mode: bool) -> str:
         elif "recommend" in target_lower:
             return "Based on the topics, I recommend sharing the Cardioxa Clinical Brochure and distributing Cardioxa Starter Samples."
         else:
-            return "I've successfully parsed your notes. Dr. John Smith's interaction has been logged with Positive sentiment. The form fields have been populated for your review."
+            return "I've successfully parsed your notes. The form fields have been populated with Positive sentiment for your review. Please click 'Log Interaction' to save it to the database."
 
 
 # --- Tool 1: Log Interaction Tool ---
@@ -373,30 +373,9 @@ def log_interaction_node(state: Dict[str, Any]) -> Dict[str, Any]:
         except Exception:
             dt = datetime.now()
             
-        # Store in DB if hcp exists
+        # Do NOT store in DB yet. The user will review the form and click "Log Interaction" to save.
         if hcp_id:
-            db_interaction = Interaction(
-                hcp_id=hcp_id,
-                type=data.get("type", "Meeting"),
-                datetime=dt,
-                attendees=data.get("attendees", []),
-                topics=data.get("topics", ""),
-                sentiment=data.get("sentiment", "Neutral"),
-                outcomes=data.get("outcomes", ""),
-                follow_ups=data.get("follow_ups", "")
-            )
-            db.add(db_interaction)
-            db.commit()
-            db.refresh(db_interaction)
-            
-            # Associate materials/samples
-            for m_id in shared_ids:
-                db.execute(interaction_materials.insert().values(interaction_id=db_interaction.id, material_id=m_id, relation_type="shared"))
-            for s_id in distributed_ids:
-                db.execute(interaction_materials.insert().values(interaction_id=db_interaction.id, material_id=s_id, relation_type="distributed"))
-            db.commit()
-            
-            data["id"] = db_interaction.id
+            data["id"] = None  # Ensure ID is null so it's treated as a new/unsaved interaction
             data["hcp_id"] = hcp_id
             data["shared_material_ids"] = shared_ids
             data["distributed_sample_ids"] = distributed_ids

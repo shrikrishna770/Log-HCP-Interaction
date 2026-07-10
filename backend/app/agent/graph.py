@@ -133,7 +133,7 @@ def responder_node(state: AgentState) -> Dict[str, Any]:
     {context}
     
     Provide a professional, friendly, and helpful response to the rep.
-    - If an interaction was logged, confirm what was saved and mention any auto-suggested follow-ups or materials.
+    - If an interaction was parsed (intent "log"), confirm the details extracted (HCP name, topics discussed, sentiment, etc.) and inform the user that the form fields have been populated for their review. Explicitly prompt them to click the "Log Interaction" button to save it. Mention any auto-suggested follow-ups or materials.
     - If edited, summarize the edits made.
     - If history was summarized, explain it clearly.
     - If recommending, list the recommendations and why they fit.
