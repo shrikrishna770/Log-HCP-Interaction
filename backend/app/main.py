@@ -24,7 +24,9 @@ app = FastAPI(title="AI-First CRM HCP Module API")
 # Add CORS Middleware to support React frontend communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all for development
+    allow_origins=[
+        "https://log-hcp-interaction.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
